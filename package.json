@@ -1,0 +1,9 @@
+{
+  "name": "chaaart",
+  "version": "1.0.0",
+  "dependencies": {
+    "esbuild": "^0.14.53",
+    "@types/three": "^0.130.0",
+    "three": "^0.130.1"
+  }
+}

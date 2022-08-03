@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+#canvas, #gui {
+    grid-column: 1;
+    grid-row: 1;
+}
+#gui {
+    pointer-events: none;
+    /*display: grid;*/
+    padding: 10px;
+    box-sizing: border-box;
+}
+#gui > * {
+    pointer-events: all;
+}
+#timeline-tMin,#timeline-tMax {
+    width: 400px
+}
+body, #canvas {
+    width: 100vw;
+    height: 100vh;
+}
+#file {
+    display: none;
+}
+input[type="color"] {
+    width: 30px;
+}
+input[type="checkbox"] {
+    width: 15px;
+    padding: 0;
+    margin: 0;
+}
+svg {
+    border: 1px solid gray;
+}

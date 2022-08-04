@@ -24596,6 +24596,7 @@ input[type=color]::-moz-color-swatch {
     const add = (object) => object3d.add(object) && object;
     const p = add(createPointsCloud(dataArray.map((p2) => ({ ...p2.p, t: p2.t })), color, 0.3));
     const t = add(createTrajectory(dataArray.map((p2) => ({ ...p2.p, t: p2.t })), color));
+    const t1 = add(createTrajectory(dataArray.map((p2) => ({ x: p2.p.x, y: 0, z: p2.p.z, t: p2.t })), color));
     const a = add(createPointsCloud(dataArray.map((p2) => ({ ...p2.a, t: p2.t })), "#0000ff", 0.5));
     const v1 = add(createVectors(dataArray.map((p2) => ({ p0: p2.p, p1: p2.v1, t: p2.t })), "#ff0000", 1));
     const v2 = add(createVectors(dataArray.map((p2) => ({ p0: p2.p, p1: p2.v2, t: p2.t })), "#00ff00", 1));
@@ -24618,6 +24619,7 @@ input[type=color]::-moz-color-swatch {
       colorControl.addEventListener("input", () => {
         p.material.color.set(colorControl.value);
         t.material.color.set(colorControl.value);
+        t1.material.color.set(colorControl.value);
         render();
       });
       addCheckbox("cb-visibility", (x) => object3d.visible = x);

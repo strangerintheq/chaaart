@@ -108,6 +108,7 @@ function addData(data: string, file:string) {
     const add = (object) => object3d.add(object) && object
     const p =  add(createPointsCloud(dataArray.map(p => ({...p.p, t:p.t})), color, 0.3));
     const t =  add(createTrajectory(dataArray.map(p => ({...p.p, t:p.t})), color));
+    const t1 = add(createTrajectory(dataArray.map(p => ({x:p.p.x, y:0, z:p.p.z, t:p.t})), color));
     const a =  add(createPointsCloud(dataArray.map(p => ({...p.a, t:p.t})), '#0000ff', 0.5));
     const v1 = add(createVectors(dataArray.map(p => ({p0:p.p, p1:p.v1, t:p.t})), '#ff0000', 1));
     const v2 = add(createVectors(dataArray.map(p => ({p0:p.p, p1:p.v2, t:p.t})), '#00ff00', 1));
@@ -132,6 +133,7 @@ function addData(data: string, file:string) {
         colorControl.addEventListener('input', () => {
             p.material.color.set(colorControl.value)
             t.material.color.set(colorControl.value)
+            t1.material.color.set(colorControl.value)
             render()
         })
 
@@ -227,7 +229,7 @@ function createVectors(data: {p0, p1, t}[], colorHex, multiplier){
 
 }
 
-function createTrajectory(data: {x,y,z, t}[], colorHex){
+function createTrajectory(data: {x,y,z,t}[], colorHex){
     const material = new LineBasicMaterial({
         color: new Color().set(colorHex)
     });

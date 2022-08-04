@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>chaaart</title>
-    <style>body {
+    <style>* {
+    box-sizing: border-box;
+}
+body {
     margin: 0;
     overflow: hidden;
     display: grid;
@@ -16,9 +19,7 @@
 }
 #gui {
     pointer-events: none;
-    /*display: grid;*/
     padding: 10px;
-    box-sizing: border-box;
 }
 #gui > * {
     pointer-events: all;
@@ -41,8 +42,44 @@ input[type="checkbox"] {
     padding: 0;
     margin: 0;
 }
-svg {
-    border: 1px solid gray;
+.legend {
+    user-select: none;
+    display: grid;
+    grid-template-columns: 20px 20px 20px 20px 20px 20px 20px 20px 200px;
+}
+.legend div {
+    text-align: center;
+}
+#datasets {
+    width: 400px;
+}
+hr {
+    margin: 0;
+}
+
+input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+    background: #fff;
+    width: 16px;
+    height: 14px;
+    border-radius: 50%;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+input[type=color]::-moz-focus-inner {
+    border: none;
+    padding: 0;
+    border-radius: 50%;
+}
+input[type=color]::-moz-color-swatch {
+    border: none;
+    border-radius: 50%;
 }</style>
 </head>
 <body>
@@ -51,16 +88,70 @@ svg {
     <input id="timeline-tMin" type=range min=0 max=200 value=0>
     <br>
     <input id="timeline-tMax" type=range min=0 max=200 value=200>
-    <br>
-    <label for="file">
-        <svg viewBox="0,0,24,24" width="32" stroke="black">
-            <path d="m6,12h12"/>
-            <path d="m12,6v12"/>
-        </svg>
-    </label>
-    <input id="file" type="file" >
-    <br>
-    <div id="datasets"></div>
+    <div id="datasets">
+        <div class="legend">
+            <div>
+                <!-- eye -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="2" />
+                    <path d="M22 12c-2.667 4.667 -6 7 -10 7s-7.333 -2.333 -10 -7c2.667 -4.667 6 -7 10 -7s7.333 2.333 10 7" />
+                </svg>
+            </div>
+            <div>
+                <!-- circle -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4" />
+                </svg>
+            </div>
+            <div>
+                <!-- line -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="4 15 8 9 12 11 16 6 20 10" />
+                </svg>
+            </div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fd0061" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="17" x2="12" y2="3" />
+                    <path d="M15 6l-3 -3l-3 3" />
+                    <circle cx="12" cy="19" r="2" />
+                    <text y="20" x="16" font-size="10" fill="black" stroke="none">1</text>
+                </svg>
+            </div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="17" x2="12" y2="3" />
+                    <path d="M15 6l-3 -3l-3 3" />
+                    <circle cx="12" cy="19" r="2" />
+                    <text y="20" x="16" font-size="10" fill="black" stroke="none">2</text>
+                </svg>
+            </div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00abfb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="17" x2="12" y2="3" />
+                    <path d="M15 6l-3 -3l-3 3" />
+                    <circle cx="12" cy="19" r="2" />
+                    <text y="20" x="16" font-size="10" fill="black" stroke="none">3</text>
+                </svg>
+            </div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="17" x2="12" y2="3" />
+                    <path d="M15 6l-3 -3l-3 3" />
+                    <circle cx="12" cy="19" r="2" />
+                </svg>
+            </div>
+        </div>
+        <hr>
+    </div>
+   <div style="padding-left: 370px">
+       <label for="file">
+           <svg viewBox="0,0,24,24" width="32" stroke="black">
+               <path d="m6,12h12"/>
+               <path d="m12,6v12"/>
+           </svg>
+       </label>
+       <input id="file" type="file" >
+   </div>
 </div>
     <script>(() => {
   // node_modules/three/build/three.module.js
@@ -24506,23 +24597,22 @@ svg {
     const p = add(createPointsCloud(dataArray.map((p2) => ({ ...p2.p, t: p2.t })), color, 0.3));
     const t = add(createTrajectory(dataArray.map((p2) => ({ ...p2.p, t: p2.t })), color));
     const a = add(createPointsCloud(dataArray.map((p2) => ({ ...p2.a, t: p2.t })), "#0000ff", 0.5));
-    const v1 = add(createVectors(dataArray.map((p2) => ({ p0: p2.p, p1: p2.v1, t: p2.t })), "#0000ff", 1));
+    const v1 = add(createVectors(dataArray.map((p2) => ({ p0: p2.p, p1: p2.v1, t: p2.t })), "#ff0000", 1));
     const v2 = add(createVectors(dataArray.map((p2) => ({ p0: p2.p, p1: p2.v2, t: p2.t })), "#00ff00", 1));
-    const v3 = add(createVectors(dataArray.map((p2) => ({ p0: p2.p, p1: p2.v3, t: p2.t })), "#ff0000", 1));
-    const v = add(createVectors(dataArray.map((p2) => ({ p0: p2.p, p1: p2.v, t: p2.t })), "#ff00ff", 1));
+    const v3 = add(createVectors(dataArray.map((p2) => ({ p0: p2.p, p1: p2.v3, t: p2.t })), "#0000ff", 1));
+    const v = add(createVectors(dataArray.map((p2) => ({ p0: p2.p, p1: p2.v, t: p2.t })), "#000000", 1));
     datasets.append(createDatasetControls());
     pointsObj.add(object3d);
     render();
     function createDatasetControls() {
       const datasetControls = document.createElement("div");
+      datasetControls.className = "legend";
       datasetControls.innerHTML = `
-            <input type="checkbox" checked class="cb-visibility">
-            <input type="color" class="input-color" value="${color}">
-            <input type="checkbox" checked  class="cb-v1">
-            <input type="checkbox" checked  class="cb-v2">
-            <input type="checkbox" checked  class="cb-v3">
-            <input type="checkbox" checked  class="cb-v">
-            <span>${file}</div>
+            ${["visibility", "p", "t", "v1", "v2", "v3", "v"].map((className) => {
+        return `<div><input type="checkbox" checked class="cb-${className}"></div>`;
+      }).join("")}
+            <div><input type="color" class="input-color" value="${color}"></div>
+            <div><span>${file}</span></div>
         `;
       let colorControl = datasetControls.querySelector('input[type="color"]');
       colorControl.addEventListener("input", () => {
@@ -24531,6 +24621,8 @@ svg {
         render();
       });
       addCheckbox("cb-visibility", (x) => object3d.visible = x);
+      addCheckbox("cb-p", (x) => p.visible = x);
+      addCheckbox("cb-t", (x) => t.visible = x);
       addCheckbox("cb-v1", (x) => v1.visible = x);
       addCheckbox("cb-v2", (x) => v2.visible = x);
       addCheckbox("cb-v3", (x) => v3.visible = x);

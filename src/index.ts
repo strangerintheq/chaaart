@@ -109,10 +109,10 @@ function addData(data: string, file:string) {
     const p =  add(createPointsCloud(dataArray.map(p => ({...p.p, t:p.t})), color, 0.3));
     const t =  add(createTrajectory(dataArray.map(p => ({...p.p, t:p.t})), color));
     const a =  add(createPointsCloud(dataArray.map(p => ({...p.a, t:p.t})), '#0000ff', 0.5));
-    const v1 = add(createVectors(dataArray.map(p => ({p0:p.p, p1:p.v1, t:p.t})), '#0000ff', 1));
+    const v1 = add(createVectors(dataArray.map(p => ({p0:p.p, p1:p.v1, t:p.t})), '#ff0000', 1));
     const v2 = add(createVectors(dataArray.map(p => ({p0:p.p, p1:p.v2, t:p.t})), '#00ff00', 1));
-    const v3 = add(createVectors(dataArray.map(p => ({p0:p.p, p1:p.v3, t:p.t})), '#ff0000' ,1));
-    const v =  add(createVectors(dataArray.map(p => ({p0:p.p, p1:p.v,  t:p.t})), '#ff00ff', 1));
+    const v3 = add(createVectors(dataArray.map(p => ({p0:p.p, p1:p.v3, t:p.t})), '#0000ff' ,1));
+    const v =  add(createVectors(dataArray.map(p => ({p0:p.p, p1:p.v,  t:p.t})), '#000000', 1));
     datasets.append(createDatasetControls())
     pointsObj.add(object3d)
 
@@ -120,14 +120,13 @@ function addData(data: string, file:string) {
 
     function createDatasetControls() {
         const datasetControls = document.createElement('div')
+        datasetControls.className = 'legend'
         datasetControls.innerHTML = `
-            <input type="checkbox" checked class="cb-visibility">
-            <input type="color" class="input-color" value="${color}">
-            <input type="checkbox" checked  class="cb-v1">
-            <input type="checkbox" checked  class="cb-v2">
-            <input type="checkbox" checked  class="cb-v3">
-            <input type="checkbox" checked  class="cb-v">
-            <span>${file}</div>
+            ${["visibility", "p", "t", "v1", "v2", "v3", "v"].map(className => {
+                return `<div><input type="checkbox" checked class="cb-${className}"></div>`
+            }).join('')}
+            <div><input type="color" class="input-color" value="${color}"></div>
+            <div><span>${file}</span></div>
         `
         let colorControl = datasetControls.querySelector('input[type="color"]') as HTMLInputElement;
         colorControl.addEventListener('input', () => {
@@ -137,6 +136,8 @@ function addData(data: string, file:string) {
         })
 
         addCheckbox('cb-visibility', x => object3d.visible = x)
+        addCheckbox('cb-p', x => p.visible = x)
+        addCheckbox('cb-t', x => t.visible = x)
         addCheckbox('cb-v1', x => v1.visible = x)
         addCheckbox('cb-v2', x => v2.visible = x)
         addCheckbox('cb-v3', x => v3.visible = x)

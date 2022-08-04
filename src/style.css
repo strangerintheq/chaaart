@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 body {
     margin: 0;
     overflow: hidden;
@@ -11,9 +14,7 @@ body {
 }
 #gui {
     pointer-events: none;
-    /*display: grid;*/
     padding: 10px;
-    box-sizing: border-box;
 }
 #gui > * {
     pointer-events: all;
@@ -36,6 +37,42 @@ input[type="checkbox"] {
     padding: 0;
     margin: 0;
 }
-svg {
-    border: 1px solid gray;
+.legend {
+    user-select: none;
+    display: grid;
+    grid-template-columns: 20px 20px 20px 20px 20px 20px 20px 20px 200px;
+}
+.legend div {
+    text-align: center;
+}
+#datasets {
+    width: 400px;
+}
+hr {
+    margin: 0;
+}
+
+input[type="color"] {
+    -webkit-appearance: none;
+    border: none;
+    background: #fff;
+    width: 16px;
+    height: 14px;
+    border-radius: 50%;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+input[type=color]::-moz-focus-inner {
+    border: none;
+    padding: 0;
+    border-radius: 50%;
+}
+input[type=color]::-moz-color-swatch {
+    border: none;
+    border-radius: 50%;
 }

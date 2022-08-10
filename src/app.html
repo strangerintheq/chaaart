@@ -1,8 +1,12 @@
 <canvas id="canvas"></canvas>
 <div id="gui">
-    <input id="timeline-tMin" type=range min=0 max=200 value=0>
+    <div id="times">
+        <div id="tmin">0</div>
+        <div id="tmax">100</div>
+    </div>
+    <input id="timeline-tMin" type=range step="0.01" value="0">
     <br>
-    <input id="timeline-tMax" type=range min=0 max=200 value=200>
+    <input id="timeline-tMax" type=range  step="0.01" value="100">
     <div id="datasets">
         <div class="legend">
             <div>

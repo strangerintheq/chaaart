@@ -15,6 +15,7 @@ body {
 #gui {
     pointer-events: none;
     padding: 10px;
+    user-select: none;
 }
 #gui > * {
     pointer-events: all;
@@ -75,4 +76,14 @@ input[type=color]::-moz-focus-inner {
 input[type=color]::-moz-color-swatch {
     border: none;
     border-radius: 50%;
+}
+
+#times {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 400px;
+}
+
+#tmax {
+    text-align: right;
 }

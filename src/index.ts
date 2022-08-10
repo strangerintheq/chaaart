@@ -22,8 +22,8 @@ const colors = [
 const datasets = document.querySelector('#datasets');
 const canvas = document.querySelector('#canvas') as HTMLCanvasElement;
 
-const tMin = {value:0}
-const tMax = {value:600}
+const tMin = {value:0, limit:1e9}
+const tMax = {value:1e9, limit:0}
 
 const renderer = new WebGLRenderer({
     canvas,
@@ -65,8 +65,19 @@ canvas.addEventListener('click', ({clientX:x, clientY:y}) => {
     console.log(coords)
 })
 
-addSlider('#timeline-tMax', v => tMax.value = v)
-addSlider('#timeline-tMin', v => tMin.value = v)
+let tminDiv = document.querySelector('#tmin');
+addSlider('#timeline-tMin', v => {
+    tMin.value = v;
+    tminDiv.innerHTML = v
+})
+
+
+let tmaxDiv = document.querySelector('#tmax');
+addSlider('#timeline-tMax', v => {
+    tMax.value = v;
+    tmaxDiv.innerHTML = v
+})
+
 
 resize()
 
@@ -104,11 +115,31 @@ function addData(data: string, file:string) {
     const dataArray = JSON.parse(data);
     const fields = ['p', 'a', 'v', 'v1', 'v2', 'v3']
     dataArray.forEach(p => fields.forEach(f => p[f] = convertPoint(p[f])))
+    const minT = dataArray[0].t;
+    const maxT = dataArray[dataArray.length - 1].t;
+
+    let sliderMin = document.querySelector('#timeline-tMin') as HTMLInputElement;
+    let sliderMax = document.querySelector('#timeline-tMax') as HTMLInputElement;
+    if (minT < tMin.limit) {
+        tMin.limit = minT;
+        sliderMin.min = tMin.limit + ''
+        sliderMax.min = tMin.limit + ''
+        sliderMin.value = minT
+        tminDiv.innerHTML = minT + ''
+    }
+    if (maxT > tMax.limit) {
+        tMax.limit = maxT;
+        sliderMax.max = tMax.limit + ''
+        sliderMin.max = tMax.limit + ''
+        sliderMax.value = maxT
+        tmaxDiv.innerHTML = maxT + ''
+    }
+
     const color = colors[Math.floor(colors.length*Math.random())]
     const add = (object) => object3d.add(object) && object
     const p =  add(createPointsCloud(dataArray.map(p => ({...p.p, t:p.t})), color, 0.3));
     const t =  add(createTrajectory(dataArray.map(p => ({...p.p, t:p.t})), color));
-    const t1 = add(createTrajectory(dataArray.map(p => ({x:p.p.x, y:0, z:p.p.z, t:p.t})), color));
+    // const t1 = add(createTrajectory(dataArray.map(p => ({x:p.p.x, y:0, z:p.p.z, t:p.t})), color));
     const a =  add(createPointsCloud(dataArray.map(p => ({...p.a, t:p.t})), '#0000ff', 0.5));
     const v1 = add(createVectors(dataArray.map(p => ({p0:p.p, p1:p.v1, t:p.t})), '#ff0000', 1));
     const v2 = add(createVectors(dataArray.map(p => ({p0:p.p, p1:p.v2, t:p.t})), '#00ff00', 1));
@@ -133,7 +164,7 @@ function addData(data: string, file:string) {
         colorControl.addEventListener('input', () => {
             p.material.color.set(colorControl.value)
             t.material.color.set(colorControl.value)
-            t1.material.color.set(colorControl.value)
+            // t1.material.color.set(colorControl.value)
             render()
         })
 

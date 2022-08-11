@@ -115,6 +115,7 @@ function addData(data: string, file:string) {
     const dataArray = JSON.parse(data);
     const fields = ['p', 'a', 'v', 'v1', 'v2', 'v3']
     dataArray.forEach(p => fields.forEach(f => p[f] = convertPoint(p[f])))
+    console.log(dataArray)
     const minT = dataArray[0].t;
     const maxT = dataArray[dataArray.length - 1].t;
 

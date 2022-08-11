@@ -24615,6 +24615,7 @@ input[type=color]::-moz-color-swatch {
     const dataArray = JSON.parse(data);
     const fields = ["p", "a", "v", "v1", "v2", "v3"];
     dataArray.forEach((p2) => fields.forEach((f) => p2[f] = convertPoint(p2[f])));
+    console.log(dataArray);
     const minT = dataArray[0].t;
     const maxT = dataArray[dataArray.length - 1].t;
     let sliderMin = document.querySelector("#timeline-tMin");

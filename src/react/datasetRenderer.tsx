@@ -6,6 +6,7 @@ import {Dataset} from "./Dataset";
 
 export function DatasetRenderer({dataset}:{dataset:Dataset}){
     return <>
+
         <Points
             color={'red'}
             positions={dataset.positions}

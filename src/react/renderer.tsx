@@ -2,13 +2,15 @@ import {Canvas} from "@react-three/fiber";
 import {OrbitControls} from "@react-three/drei";
 import * as React from "react";
 import {Dataset} from "./Dataset";
-import {Points} from "./points";
 import {CameraPosition} from "./cameraPosition";
-import {Vectors} from "./vectors";
-import {Vector3} from "three";
 import {DatasetRenderer} from "./datasetRenderer";
 
-export function Renderer({datasets}: { datasets: Dataset[] }) {
+type RendererParams = {
+    datasets: Dataset[]
+};
+
+export function Renderer(params: RendererParams) {
+    const {datasets} = params;
     return <Canvas style={{gridColumn: 1, gridRow: 1}}>
         <axesHelper scale={10} />
         <CameraPosition x={10} y={10} z={10} />

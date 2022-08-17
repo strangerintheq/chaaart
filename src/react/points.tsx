@@ -5,7 +5,14 @@ import {useFrame} from "@react-three/fiber";
 
 const boxesGeometry = new BoxBufferGeometry(0.1, 0.1, 0.1);
 
-export function Points({positions,color}:{positions: Vector3[],  color:string}) {
+type PointsParams = {
+    positions: Vector3[],
+    color: string
+};
+
+export function Points(params:PointsParams) {
+
+    const {positions, color} = params;
 
     const material = new MeshBasicMaterial({color});
 

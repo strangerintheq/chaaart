@@ -5,9 +5,9 @@ import {useFrame} from "@react-three/fiber";
 
 const boxesGeometry = new BoxBufferGeometry(0.1, 0.1, 0.1);
 
-export function Points({positions}:{positions: Vector3[]}) {
+export function Points({positions,color}:{positions: Vector3[],  color:string}) {
 
-    const material = new MeshBasicMaterial({color: "red"});
+    const material = new MeshBasicMaterial({color});
 
     const ref = useRef();
 
@@ -22,6 +22,7 @@ export function Points({positions}:{positions: Vector3[]}) {
     }, [positions])
 
     return <instancedMesh
+        onClick={(e) => console.log(e.instanceId)}
         ref={ref}
         args={[boxesGeometry, material, positions.length]}
     />;
